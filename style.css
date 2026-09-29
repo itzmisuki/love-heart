@@ -1,0 +1,417 @@
+:root {
+    --red-main: #b00018;
+    --red-dark: #260006;
+    --red-shadow: #100002;
+
+    --white: #eeeeee;
+    --black: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background: #000;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================================
+   SCENE
+========================================= */
+
+.scene {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(45, 0, 6, 0.13),
+            transparent 40%
+        ),
+        #000;
+}
+
+/* =========================================
+   RED ATMOSPHERE
+========================================= */
+
+.glow {
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    left: 50%;
+    top: 42%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(60, 0, 8, 0.10),
+            rgba(25, 0, 4, 0.04) 45%,
+            transparent 72%
+        );
+
+    filter: blur(55px);
+
+    pointer-events: none;
+}
+
+/* =========================================
+   HEART
+========================================= */
+
+#heart {
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    left: 50%;
+    top: 42%;
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+/* =========================================
+   MAIN WORDS
+========================================= */
+
+.word {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        translate(var(--x), var(--y))
+        scale(var(--scale));
+
+    color: var(--color);
+
+    font-size: 9px;
+    font-weight: 500;
+
+    letter-spacing: -0.2px;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    text-shadow:
+        0 0 2px rgba(70, 0, 8, 0.25),
+        1px 1px 0 var(--red-shadow);
+
+    filter: blur(0.1px);
+
+    animation:
+        formHeart
+        var(--duration)
+        ease-out
+        forwards;
+
+    animation-delay: var(--delay);
+
+    user-select: none;
+}
+
+/* =========================================
+   DARK SHADOW BEHIND WORDS
+========================================= */
+
+.word::after {
+    content: "I love you";
+
+    position: absolute;
+
+    left: 2px;
+    top: 2px;
+
+    color: var(--red-shadow);
+
+    opacity: 0.95;
+
+    filter: blur(0.7px);
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+/* =========================================
+   HEART FORMATION
+========================================= */
+
+@keyframes formHeart {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            translate(var(--start-x), var(--start-y))
+            scale(0.45);
+
+        filter: blur(5px);
+    }
+
+    45% {
+        opacity: 0.35;
+
+        filter: blur(2.5px);
+    }
+
+    70% {
+        opacity: 0.75;
+
+        filter: blur(0.8px);
+    }
+
+    100% {
+        opacity: var(--opacity);
+
+        transform:
+            translate(-50%, -50%)
+            translate(var(--x), var(--y))
+            scale(var(--scale));
+
+        filter: blur(0);
+    }
+}
+
+/* =========================================
+   EXTRA ANIMATED WORDS
+========================================= */
+
+.ambient {
+    animation:
+        livingWord
+        var(--duration)
+        ease-in-out
+        var(--delay)
+        infinite;
+}
+
+@keyframes livingWord {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0.72);
+
+        filter: blur(2px);
+    }
+
+    12% {
+        opacity: calc(var(--opacity) * 0.45);
+
+        transform:
+            translate(-50%, -50%)
+            translate(
+                calc(var(--x) + var(--move-x)),
+                calc(var(--y) + var(--move-y))
+            )
+            scale(0.88);
+
+        filter: blur(0.8px);
+    }
+
+    28% {
+        opacity: var(--opacity);
+
+        transform:
+            translate(-50%, -50%)
+            translate(
+                calc(var(--x) - var(--move-x)),
+                calc(var(--y) - var(--move-y))
+            )
+            scale(1.04);
+
+        filter: blur(0);
+    }
+
+    48% {
+        opacity: calc(var(--opacity) * 0.55);
+
+        transform:
+            translate(-50%, -50%)
+            translate(
+                calc(var(--x) + var(--move-x)),
+                calc(var(--y) + var(--move-y))
+            )
+            scale(0.94);
+    }
+
+    65% {
+        opacity: calc(var(--opacity) * 0.8);
+
+        transform:
+            translate(-50%, -50%)
+            translate(
+                calc(var(--x) - var(--move-x)),
+                calc(var(--y) - var(--move-y))
+            )
+            scale(1.02);
+    }
+
+    82% {
+        opacity: calc(var(--opacity) * 0.25);
+
+        transform:
+            translate(-50%, -50%)
+            translate(
+                calc(var(--x) + var(--move-x)),
+                calc(var(--y) - var(--move-y))
+            )
+            scale(0.9);
+
+        filter: blur(0.5px);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            translate(
+                calc(var(--x) - var(--move-x)),
+                calc(var(--y) + var(--move-y))
+            )
+            scale(0.72);
+
+        filter: blur(2px);
+    }
+}
+
+/* =========================================
+   FINAL I LOVE YOU
+========================================= */
+
+#center-message {
+    position: absolute;
+
+    left: 50%;
+    top: 42%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.92);
+
+    color: var(--white);
+
+    font-size: 35px;
+    font-weight: 400;
+
+    letter-spacing: 0.5px;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    transition:
+        opacity 1.8s ease,
+        transform 1.8s ease;
+
+    z-index: 20;
+
+    text-shadow:
+        2px 3px 0 #160003,
+        2px 4px 6px rgba(0, 0, 0, 0.95);
+
+    pointer-events: none;
+}
+
+/* =========================================
+   SHADOW OF FINAL MESSAGE
+========================================= */
+
+#center-message::after {
+    content: "I love you";
+
+    position: absolute;
+
+    left: 4px;
+    top: 4px;
+
+    color: #260006;
+
+    opacity: 0.95;
+
+    filter: blur(1px);
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+#center-message.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+    #heart {
+        width: 590px;
+        height: 590px;
+    }
+
+    .glow {
+        width: 560px;
+        height: 560px;
+    }
+
+    #center-message {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    #heart {
+        width: 430px;
+        height: 430px;
+    }
+
+    .glow {
+        width: 430px;
+        height: 430px;
+    }
+
+    #center-message {
+        font-size: 26px;
+    }
+}
